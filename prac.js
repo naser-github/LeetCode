@@ -1,26 +1,73 @@
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number}
- */
-var searchInsert = function(nums, target) {
-    
-    let start = 0
-    let mid = 0
-    let end = nums.length-1
+var merge = function (nums, l, m, r){
+    const nl = m-l+1
+    const nr = r-m
 
-    while(start<=end){
-        
-        mid = Math.floor((start+end)/2)
+    const left = []
+    const right = []
 
-        console.log (start,mid,end)
-
-        if(nums[mid] == target)
-            return mid
-
-        nums[mid] > target? end = mid-1: start = mid+1
+    for(let i=0;i<nl;i++){
+        left[i] = nums[l+i]
     }
-    return end+1
+
+    for(let j=0;j<nr;j++){
+        right[j] = nums[m+1+j]
+    }
+
+    let il = 0
+    let jr = 0
+    let k = l
+
+    while(il<nl && jr<nr){
+        if (left[il]<=right[jr]){
+            nums[k] = left[il]
+            il++
+        }
+        else{
+            nums[k] = right[jr]
+            jr++
+        } 
+        k++  
+    }
+
+    while(il<nl){
+        nums[k] = left[il]
+        il++
+        k++
+    }
+
+    while(jr<nr){
+        nums[k] = right[jr]
+        jr++
+        k++
+    }
+    
+    // console.log('l', l, 'm', m, 'r', r, 'nl', nl, 'nr', nr, 'left', left, 'right', right, nums)
+
+    return nums
+}
+
+var mergeSort = function(nums, l, r){
+
+    if(l>=r){
+        return;
+    }
+    const m =l+ Math.floor((r-l)/2);
+    mergeSort(nums,l,m);
+    mergeSort(nums,m+1,r);
+    merge(nums,l,m,r);
+    
+    return nums
+}
+
+var singleNumber = function(nums) {
+
+    let arr = mergeSort(nums, 0 , nums.length-1);git 
+
+    for(i=0;i<arr.length;i+=2){
+
+        if(arr[i]!=arr[i+1])
+            return arr[i]
+    }
 };
 
-console.log(searchInsert([1,3,6,7,9],4))
+console.log(singleNumber([9,6,9,6,12,2,4,12,2]))
