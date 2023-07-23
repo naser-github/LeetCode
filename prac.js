@@ -1,25 +1,13 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {boolean}
  */
-var majorityElement = function(nums) {
-
-    const length = nums.length
-
-    if(length==1)
-        return nums[0]
+var containsDuplicate = function(nums) {
+    const occurrence = [];
     
-    let threshold = Math.ceil(length/2)
-    let count = 1;
-    
-    nums = nums.sort();
-
-    for(let i=0;i<length-1;i++){
-        nums[i]==nums[i+1]? count++ : count=1
-
-        if(count>=threshold)
-            return nums[i]
+    for(let i=0;i<nums.length-1;i++){
+     if(occurrence)   
     }
 };
 
-console.log(majorityElement([2,2,1,1,1,2,2]))
+console.log(containsDuplicate([1,2,4,3]))
