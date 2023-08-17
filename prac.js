@@ -1,26 +1,26 @@
 /**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number[]}
+ * @param {string} s
+ * @return {boolean}
  */
-var intersect = function (nums1, nums2) {
-  const myMap = new Map();
-  const intersect = [];
+var isPalindrome = function (s) {
+  const length = s.length;
+  let char = "";
 
-  nums1.map((num) => {
-    myMap.has(num) ? myMap.set(num, myMap.get(num) + 1) : myMap.set(num, 1);
-  });
+  let reverseString = "";
+  let string = "";
 
-  nums2.map((num) => {
-    let val = myMap.get(num);
-
-    if (val > 0) {
-      intersect.push(num);
-      myMap.set(num, --val);
+  for (let i = 0; i < length; i++) {
+    char = s[i].toLowerCase();
+    if ((char >= "a" && char <= "z") || (char >= "0" && char <= "9")) {
+      string += char;
     }
-  });
+  }
 
-  return intersect;
+  for (let i = string.length - 1; i >= 0; i--) {
+    reverseString += string[i];
+  }
+
+  return string === reverseString ? true : false;
 };
 
-console.log(intersect([2, 2], [2, 2]));
+console.log(isPalindrome("A man, a plan, a canal: Panama"));
