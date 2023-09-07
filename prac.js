@@ -1,26 +1,29 @@
 /**
- * @param {string} s
- * @return {boolean}
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
  */
-var isPalindrome = function (s) {
-  const length = s.length;
-  let char = "";
+var findMaxAverage = function (nums, k) {
+  let sum = 0;
+  let final_sum = 0;
+  let j = 0;
 
-  let reverseString = "";
-  let string = "";
+  while (k > j) {
+    sum += nums[j];
+    j++;
+  }
 
-  for (let i = 0; i < length; i++) {
-    char = s[i].toLowerCase();
-    if ((char >= "a" && char <= "z") || (char >= "0" && char <= "9")) {
-      string += char;
+  final_sum = sum
+
+  for (let i = k; i < nums.length; i++) {
+    sum = sum - nums[i - k] + nums[i];
+
+    if (sum > final_sum) {
+      final_sum = sum;
     }
   }
 
-  for (let i = string.length - 1; i >= 0; i--) {
-    reverseString += string[i];
-  }
-
-  return string === reverseString ? true : false;
+  return final_sum / k;
 };
 
-console.log(isPalindrome("A man, a plan, a canal: Panama"));
+findMaxAverage([1, 12, -5, -6, 50, 3], 4);
