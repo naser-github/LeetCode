@@ -1,29 +1,31 @@
 /**
- * @param {number[]} nums
- * @param {number} k
- * @return {number}
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
  */
-var findMaxAverage = function (nums, k) {
-  let sum = 0;
-  let final_sum = 0;
-  let j = 0;
+var canPlaceFlowers = function (flowerbed, n) {
+  const length = flowerbed.length;
 
-  while (k > j) {
-    sum += nums[j];
-    j++;
+  if (n == 0 || (length == 1 && flowerbed[0] == 0)) {
+      return true;
   }
 
-  final_sum = sum
-
-  for (let i = k; i < nums.length; i++) {
-    sum = sum - nums[i - k] + nums[i];
-
-    if (sum > final_sum) {
-      final_sum = sum;
-    }
+  for (let i = 0; i <= length; i++) {
+      if (flowerbed[i] == 0) {
+          if (
+              (i == 0 && flowerbed[i + 1] == 0) ||
+              (i == length - 1 && flowerbed[i - 1] == 0) ||
+              (n + 1 < length && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0)
+          ) {
+              i++;
+              n--;
+          }
+      }
+      if (n == 0) {
+          return true;
+      }
   }
-
-  return final_sum / k;
+  return false;
 };
 
-findMaxAverage([1, 12, -5, -6, 50, 3], 4);
+console.log(canPlaceFlowers([1,0,1,0,1], 0))
