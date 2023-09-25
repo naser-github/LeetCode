@@ -7,11 +7,11 @@ var canBeIncreasing = function (nums) {
   let flag = 0;
   let min = 0;
   let remove = 0;
-
+  
   for (let i = 1; i < length; i++) {
     if (nums[i - 1] >= nums[i]) {
-      remove = nums[i - 1]
       flag++
+      remove = nums[i - 1]
       if(flag>1){
         break
       }
